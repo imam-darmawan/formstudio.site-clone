@@ -1,7 +1,7 @@
 const Background = () => {
   return (
     <div
-      className="absolute w-full h-full flex justify-evenly -z-50"
+      className="fixed w-full h-full flex justify-evenly -z-50"
       aria-hidden="true"
     >
       {Array(3)
