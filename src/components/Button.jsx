@@ -1,62 +1,57 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
 import PropTypes from "prop-types";
+import { useRef } from "react";
 
-const Button = ({ text, url, shorten }) => {
+const Button = ({ text, url, shortened }) => {
+  const { contextSafe } = useGSAP();
+
+  const border = useRef();
+
   const borderMask = {
-    invisible: "100%",
-    visible: "8px",
+    position: "0%",
     get mask() {
       return `
-        linear-gradient(to left, #ffffff00 calc(${this.invisible} - ${this.visible}), black 0),
-        linear-gradient(to right, #ffffff00 calc(${this.invisible} - ${this.visible}), black 0)
-      `;
+        linear-gradient(to right, black calc(${this.position} + 8px), #0000 0),
+        linear-gradient(to left, black calc(${this.position} + 8px), #0000 0)
+    `;
     },
   };
 
-  const borderRef = useRef();
-  const buttonRef = useRef();
-
-  useGSAP(() => {
-    const borderAnimation = gsap.to(borderMask, {
-      invisible: "50%",
-      ease: "circ.inOut",
-      duration: 0.8,
-      paused: true,
-      onUpdate: () => {
-        borderRef.current.style.mask = borderMask.mask;
-      },
-    });
-
-    buttonRef.current.addEventListener("mouseenter", () =>
-      borderAnimation.play()
-    );
-    buttonRef.current.addEventListener("mouseleave", () =>
-      borderAnimation.reverse()
-    );
+  const borderAnimation = gsap.to(borderMask, {
+    position: "50.1% - 8px",
+    paused: true,
+    ease: "expo.inOut",
+    duration: 0.8,
+    onUpdate: () => {
+      border.current.style.mask = borderMask.mask;
+    },
   });
 
   return (
     <a
       href={url ?? "#"}
-      className="group relative inline-flex items-center justify-center px-3 h-9 uppercase text-xl text-nowrap md:px-4 md:h-10 md:text-2xl"
-      ref={buttonRef}
+      className="group relative inline-flex h-9 items-center justify-center text-nowrap px-3 text-xl uppercase md:h-10 md:px-4 md:text-2xl"
+      onMouseEnter={contextSafe(() => borderAnimation.play())}
+      onMouseLeave={contextSafe(() => borderAnimation.reverse())}
     >
-      {shorten ? (
-        <>
-          <span>{text.at(0)}</span>
-          <div className="overflow-hidden -tracking-[1em] -translate-x-4 opacity-0 group-hover:tracking-normal group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-700">
+      {/* Text */}
+      {shortened ? (
+        <div className="flex">
+          <div>{text.at(0)}</div>
+          <div className="-translate-x-4 overflow-hidden -tracking-[1em] opacity-0 transition-all duration-700 group-hover:translate-x-0 group-hover:tracking-normal group-hover:opacity-100">
             {text.slice(1)}
           </div>
-        </>
+        </div>
       ) : (
-        text
+        <div>{text}</div>
       )}
+
+      {/* Border */}
       <div
-        className="absolute border inset-0 rounded-full"
+        className="absolute inset-0 rounded-full border"
         style={{ mask: borderMask.mask }}
-        ref={borderRef}
+        ref={border}
       ></div>
     </a>
   );
@@ -65,7 +60,7 @@ const Button = ({ text, url, shorten }) => {
 Button.propTypes = {
   text: PropTypes.string.isRequired,
   url: PropTypes.string,
-  shorten: PropTypes.bool,
+  shortened: PropTypes.bool,
 };
 
 export default Button;

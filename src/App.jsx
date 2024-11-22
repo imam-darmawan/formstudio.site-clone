@@ -4,6 +4,7 @@ import Button from "./components/Button";
 
 // Sections
 import Hero from "./sections/Hero";
+import Projects from "./sections/Projects";
 
 const App = () => {
   const navLinks = [
@@ -25,7 +26,7 @@ const App = () => {
           >
             {navLinks.map((link) => (
               <li key={link.title} className="m-3">
-                <Button text={link.title} shorten />
+                <Button text={link.title} shortened />
               </li>
             ))}
           </ul>
@@ -35,8 +36,8 @@ const App = () => {
       <main>
         <Hero />
 
-        <div className="w-full h-screen flex items-center justify-center p-12">
-          <p className="text-xl md:text-2xl uppercase max-w-xl text-center">
+        <div className="flex h-screen w-full items-center justify-center p-12">
+          <p className="max-w-xl text-center text-xl uppercase md:text-2xl">
             Welcome to Form Studio &ndash; where brands discover their rhythm,
             creativity comes alive, and ideas know how to have a good time.
             We&apos;re the studio that fearlessly bends the rules and champions
@@ -44,6 +45,8 @@ const App = () => {
             maintain the brand language and still push boundaries.
           </p>
         </div>
+
+        <Projects />
       </main>
     </>
   );
