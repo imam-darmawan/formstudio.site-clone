@@ -31,7 +31,7 @@ const Button = ({ text, url, shortened }) => {
   return (
     <a
       href={url ?? "#"}
-      className="group relative inline-flex h-9 items-center justify-center text-nowrap px-3 text-xl uppercase md:h-10 md:px-4 md:text-2xl"
+      className="group relative inline-flex h-9 items-center justify-center text-nowrap px-4 text-xl uppercase max-sm:text-lg"
       onMouseEnter={contextSafe(() => borderAnimation.play())}
       onMouseLeave={contextSafe(() => borderAnimation.reverse())}
     >
@@ -49,7 +49,7 @@ const Button = ({ text, url, shortened }) => {
 
       {/* Border */}
       <div
-        className="absolute inset-0 rounded-full border"
+        className="absolute inset-0 rounded-full border border-white"
         style={{ mask: borderMask.mask }}
         ref={border}
       ></div>

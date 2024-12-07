@@ -33,10 +33,10 @@ const Projects = () => {
   return (
     <div>
       <div className="h-[200vh]" ref={videoContainer}>
-        <div className="sticky top-0 h-screen w-full">
-          <h2 className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 text-[12rem]">
-            <span className="-translate-x-[50vw]">SHOW</span>
-            <span className="translate-x-[50vw]">CASE</span>
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          <h2 className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 text-[clamp(3.5rem,14cqi,9rem)] font-extrabold uppercase tracking-tighter">
+            <span className="-translate-x-[80vw]">Show</span>
+            <span className="translate-x-[80vw]">case</span>
           </h2>
           <video
             src="https://framerusercontent.com/assets/BcIElVBzSD9P1ht5PhehnVyzTA.mp4"

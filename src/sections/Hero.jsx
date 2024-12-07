@@ -2,8 +2,8 @@ import Button from "../components/Button";
 
 const Hero = () => {
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center space-y-8">
-      <h1 className="text-[clamp(2rem,30cqi,20rem)] leading-none uppercase">
+    <div className="flex h-screen w-full flex-col items-center justify-center space-y-8">
+      <h1 className="text-[clamp(7rem,30cqi,14rem)] font-extrabold uppercase leading-none tracking-tighter">
         Form
       </h1>
       <Button text="Studio" />

@@ -36,8 +36,8 @@ const App = () => {
       <main>
         <Hero />
 
-        <div className="flex h-screen w-full items-center justify-center p-12">
-          <p className="max-w-xl text-center text-xl uppercase md:text-2xl">
+        <div className="flex min-h-[60vh] w-full items-center justify-center p-10">
+          <p className="max-w-xl text-center text-xl uppercase max-sm:text-lg">
             Welcome to Form Studio &ndash; where brands discover their rhythm,
             creativity comes alive, and ideas know how to have a good time.
             We&apos;re the studio that fearlessly bends the rules and champions
