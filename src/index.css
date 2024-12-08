@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .parenthesize {
+    @apply relative;
+
+    --parenthesis-size: 0% + 8px;
+  }
+
+  .parenthesize::after {
+    @apply absolute inset-0 rounded-full border border-white;
+
+    content: "";
+    mask: linear-gradient(
+        to right,
+        black calc(var(--parenthesis-size)),
+        #0000 0
+      ),
+      linear-gradient(to left, black calc(var(--parenthesis-size)), #0000 0);
+  }
+}
