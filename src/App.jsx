@@ -1,3 +1,7 @@
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 // Components
 import Background from "./components/Background";
 import Button from "./components/Button";
@@ -14,6 +18,30 @@ const App = () => {
     { title: "Studio" },
   ];
 
+  const navLinkList = useRef();
+  const aboutText = useRef();
+
+  useGSAP(() => {
+    // Nav links reveal animation
+    const navLinkListItems = navLinkList.current.children;
+
+    gsap.from(navLinkListItems, {
+      opacity: 0,
+      duration: 1,
+      stagger: 0.3,
+    });
+
+    // About text reveal animation
+    gsap.from(aboutText.current, {
+      opacity: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: aboutText.current,
+        toggleActions: "restart none restart none",
+      },
+    });
+  });
+
   return (
     <>
       <Background />
@@ -23,6 +51,7 @@ const App = () => {
           <ul
             className="grid"
             style={{ gridTemplateColumns: `repeat(${navLinks.length}, 1fr)` }}
+            ref={navLinkList}
           >
             {navLinks.map((link) => (
               <li key={link.title} className="m-3">
@@ -37,7 +66,10 @@ const App = () => {
         <Hero />
 
         <div className="flex min-h-[60vh] w-full items-center justify-center p-10">
-          <p className="max-w-xl text-center text-xl uppercase max-sm:text-lg">
+          <p
+            className="max-w-xl text-center text-xl uppercase max-sm:text-lg"
+            ref={aboutText}
+          >
             Welcome to Form Studio &ndash; where brands discover their rhythm,
             creativity comes alive, and ideas know how to have a good time.
             We&apos;re the studio that fearlessly bends the rules and champions
