@@ -4,14 +4,12 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 const Hero = () => {
-  const heroContainer = useRef();
+  const container = useRef();
 
   useGSAP(
     () => {
-      // Site title reveal animation
-      const siteTitle = gsap.utils.toArray("h1 span");
-
-      gsap.from(siteTitle, {
+      // Brand name reveal animation
+      gsap.from("h1 span", {
         scrollTrigger: {
           trigger: "h1",
           toggleActions: "play none restart none",
@@ -33,13 +31,13 @@ const Hero = () => {
         ease: "power3.inOut",
       });
     },
-    { scope: heroContainer },
+    { scope: container },
   );
 
   return (
     <div
       className="flex h-screen w-full flex-col items-center justify-center space-y-8"
-      ref={heroContainer}
+      ref={container}
     >
       <h1 className="overflow-hidden text-nowrap text-[clamp(7rem,30cqi,14rem)] font-extrabold uppercase leading-none tracking-tighter">
         {"Form".split("").map((char) => (

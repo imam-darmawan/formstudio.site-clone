@@ -3,13 +3,11 @@ import gsap from "gsap";
 import { useRef } from "react";
 
 const Background = () => {
-  const backgroundContainer = useRef();
+  const container = useRef();
 
   useGSAP(
     () => {
-      const separators = gsap.utils.toArray("div");
-
-      gsap.from(separators, {
+      gsap.from("div", {
         y: "100%",
         duration: 2,
         stagger: 0.5,
@@ -17,14 +15,14 @@ const Background = () => {
         ease: "power4.out",
       });
     },
-    { scope: backgroundContainer },
+    { scope: container },
   );
 
   return (
     <div
       className="fixed -z-50 flex h-full w-full justify-evenly overflow-hidden"
       aria-hidden="true"
-      ref={backgroundContainer}
+      ref={container}
     >
       {Array(3)
         .fill()
