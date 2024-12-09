@@ -34,10 +34,11 @@ const App = () => {
     // About text reveal animation
     gsap.from(aboutText.current, {
       opacity: 0,
-      duration: 1,
       scrollTrigger: {
         trigger: aboutText.current,
-        toggleActions: "restart none restart none",
+        scrub: 1,
+        start: "top 80%",
+        end: "bottom center",
       },
     });
   });
@@ -65,7 +66,7 @@ const App = () => {
       <main>
         <Hero />
 
-        <div className="flex min-h-[60vh] w-full items-center justify-center p-10">
+        <div className="flex min-h-screen w-full items-center justify-center p-10">
           <p
             className="max-w-xl text-center text-xl uppercase max-sm:text-lg"
             ref={aboutText}

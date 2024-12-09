@@ -14,7 +14,7 @@ const Hero = () => {
       gsap.from(siteTitle, {
         scrollTrigger: {
           trigger: "h1",
-          toggleActions: "restart none restart none",
+          toggleActions: "play none restart none",
         },
         y: "100%",
         duration: 1,
@@ -26,7 +26,7 @@ const Hero = () => {
       gsap.from("a", {
         scrollTrigger: {
           trigger: "a",
-          toggleActions: "restart none restart none",
+          toggleActions: "play none restart none",
         },
         y: "100%",
         duration: 2,
