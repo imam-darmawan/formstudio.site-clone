@@ -51,40 +51,42 @@ const ProjectCard = ({ title, category, image }) => {
 
   return (
     <article>
-      <div className="group relative" ref={imageContainer}>
-        <img
-          src={image}
-          alt={title}
-          className="aspect-[3/2] w-full object-cover"
-        />
-        <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          ref={buttonContainer}
-        >
-          <a
-            href="#"
-            className="flex h-11 scale-0 gap-1 text-xl uppercase opacity-0 transition duration-300 hover:!scale-110 group-hover:scale-100 group-hover:opacity-100 max-sm:text-lg"
+      <a href="#">
+        <div className="group relative" ref={imageContainer}>
+          <img
+            src={image}
+            alt={title}
+            className="aspect-[3/2] w-full object-cover"
+          />
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            ref={buttonContainer}
           >
-            <span className="flex h-full items-center rounded-full bg-black/50 px-5 backdrop-blur-sm">
-              View
-            </span>
-            <span className="flex aspect-square h-full items-center justify-center overflow-hidden rounded-full bg-black/50 backdrop-blur-sm">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="h-7 w-7"
-              >
-                <path d="M14.5895 16.0032L5.98291 7.39664L7.39712 5.98242L16.0037 14.589V7.00324H18.0037V18.0032H7.00373V16.0032H14.5895Z"></path>
-              </svg>
-            </span>
-          </a>
+            <div
+              href="#"
+              className="flex h-11 scale-0 gap-1 text-xl uppercase opacity-0 transition duration-300 hover:!scale-110 group-hover:scale-100 group-hover:opacity-100 max-sm:text-lg"
+            >
+              <span className="flex h-full items-center rounded-full bg-black/50 px-5 backdrop-blur-sm">
+                View
+              </span>
+              <span className="flex aspect-square h-full items-center justify-center overflow-hidden rounded-full bg-black/50 backdrop-blur-sm">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="h-7 w-7"
+                >
+                  <path d="M14.5895 16.0032L5.98291 7.39664L7.39712 5.98242L16.0037 14.589V7.00324H18.0037V18.0032H7.00373V16.0032H14.5895Z"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
-      <h3 className="mt-2 flex justify-between text-xs uppercase">
-        <span>{title}</span>
-        <span>{category}</span>
-      </h3>
+        <h3 className="mt-2 flex justify-between text-xs uppercase">
+          <span>{title}</span>
+          <span>{category}</span>
+        </h3>
+      </a>
     </article>
   );
 };

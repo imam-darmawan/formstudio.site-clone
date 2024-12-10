@@ -12,8 +12,8 @@ const About = () => {
         scrollTrigger: {
           trigger: "p",
           scrub: 1,
-          start: "top 80%",
-          end: "bottom center",
+          start: "top 90%",
+          end: "bottom 70%",
         },
       });
     },

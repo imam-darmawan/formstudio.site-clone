@@ -25,8 +25,8 @@ const NavLinks = () => {
         style={{ gridTemplateColumns: `repeat(${navLinks.length}, 1fr)` }}
       >
         {navLinks.map((link) => (
-          <li key={link.title} className="m-3">
-            <Button text={link.title} shortened />
+          <li key={link.label} className="p-3">
+            <Button text={link.label} shortened />
           </li>
         ))}
       </ul>

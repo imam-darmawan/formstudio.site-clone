@@ -50,10 +50,30 @@ const projects = [
 ];
 
 const navLinks = [
-  { title: "Form" },
-  { title: "Projects" },
-  { title: "Blog" },
-  { title: "Studio" },
+  { label: "Form" },
+  { label: "Projects" },
+  { label: "Blog" },
+  { label: "Studio" },
 ];
 
-export { projects, navLinks };
+const blogPosts = [
+  {
+    title: "The Enigma of the Eternal Void: A Quest for the Heart of Creation",
+    readingTime: "8 min",
+    image: "https://images.unsplash.com/photo-1728106700425-452623230402?w=640",
+  },
+  {
+    title:
+      "The Whispering Echoes of Forgotten Realms: A Journey Through the Veil of Reality",
+    readingTime: "4 min",
+    image: "https://images.unsplash.com/photo-1625334666162-8ad10e7332d2?w=640",
+  },
+  {
+    title:
+      "The Celestial Dance of Destiny: A Cosmic Ballet Between Light and Darkness",
+    readingTime: "10 min",
+    image: "https://images.unsplash.com/photo-1557128928-66e3009291b5?w=640",
+  },
+];
+
+export { projects, navLinks, blogPosts };
