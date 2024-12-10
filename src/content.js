@@ -9,19 +9,19 @@ const projects = [
     title: "Nebula's Embrace",
     image: "https://images.unsplash.com/photo-1633082568100-b23b295589f8?w=640",
     category: "packaging",
-    align: "self-center",
+    align: "self-end",
   },
   {
     title: "Silent Symphony",
     image: "https://images.unsplash.com/photo-1727949236862-b8692b9d1dc8?w=640",
     category: "abstract",
-    align: "self-end",
+    align: "self-center",
   },
   {
     title: "Quantum Dreams",
     image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=640",
     category: "packaging",
-    align: "self-center",
+    align: "self-end",
   },
   {
     title: "Temporal Shift",

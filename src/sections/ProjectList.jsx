@@ -101,7 +101,7 @@ const List = () => {
             scrollTrigger: {
               trigger: card.parentElement,
               toggleActions: "play none none reverse",
-              start: "top 70%",
+              start: "top 60%",
             },
           });
         });
@@ -123,7 +123,7 @@ const List = () => {
       </h2>
 
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <ul className="relative top-1/2 flex h-[90%] -translate-y-[46%]">
+        <ul className="relative flex h-full pb-6 pt-16">
           {projects.map((project) => (
             <li
               className={`${project.align} w-1/4 flex-shrink-0 p-3 max-lg:w-1/2 max-sm:w-full`}
