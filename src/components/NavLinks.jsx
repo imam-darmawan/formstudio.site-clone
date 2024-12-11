@@ -26,7 +26,7 @@ const NavLinks = () => {
       >
         {navLinks.map((link) => (
           <li key={link.label} className="p-3">
-            <Button text={link.label} shortened />
+            <Button label={link.label} shortened />
           </li>
         ))}
       </ul>

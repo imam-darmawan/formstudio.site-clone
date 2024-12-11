@@ -48,7 +48,7 @@ const PostList = () => {
 
       postCards.forEach((card) => {
         gsap.to(card, {
-          scale: 0.5,
+          scale: 0.3,
           scrollTrigger: {
             trigger: card.parentElement,
             scrub: 1,

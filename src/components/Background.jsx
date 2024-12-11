@@ -28,7 +28,10 @@ const Background = () => {
         .fill()
         .map((val, idx) => {
           return (
-            <div key={idx} className="h-full w-px bg-white opacity-10"></div>
+            <div
+              key={idx}
+              className="h-full w-px bg-neutral-500 opacity-30"
+            ></div>
           );
         })}
     </div>

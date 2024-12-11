@@ -4,6 +4,7 @@ import Hero from "./sections/Hero";
 import About from "./sections/About";
 import ProjectList from "./sections/ProjectList";
 import Blog from "./sections/Blog";
+import Discover from "./sections/Discover";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <About />
         <ProjectList />
         <Blog />
+        <Discover />
       </main>
     </>
   );

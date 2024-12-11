@@ -48,7 +48,7 @@ const Hero = () => {
       </h1>
 
       <div className="overflow-hidden">
-        <Button text="Studio" />
+        <Button label="Studio" />
       </div>
     </div>
   );

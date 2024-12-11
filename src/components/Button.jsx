@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import PropTypes from "prop-types";
 import { useRef } from "react";
 
-const Button = ({ text, url, shortened }) => {
+const Button = ({ label, url, shortened }) => {
   const container = useRef();
 
   useGSAP(() => {
@@ -34,20 +34,20 @@ const Button = ({ text, url, shortened }) => {
     >
       {shortened ? (
         <div className="flex">
-          <div>{text.at(0)}</div>
+          <div>{label.at(0)}</div>
           <div className="-translate-x-4 overflow-hidden -tracking-[1em] opacity-0 transition-all duration-700 group-hover:translate-x-0 group-hover:tracking-normal group-hover:opacity-100">
-            {text.slice(1)}
+            {label.slice(1)}
           </div>
         </div>
       ) : (
-        <div>{text}</div>
+        <div>{label}</div>
       )}
     </a>
   );
 };
 
 Button.propTypes = {
-  text: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   url: PropTypes.string,
   shortened: PropTypes.bool,
 };
