@@ -2,9 +2,10 @@ import Background from "./components/Background";
 import NavLinks from "./components/NavLinks";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
-import ProjectList from "./sections/ProjectList";
+import Projects from "./sections/Projects";
 import Blog from "./sections/Blog";
 import Discover from "./sections/Discover";
+import Footer from "./sections/Footer";
 
 const App = () => {
   return (
@@ -18,10 +19,12 @@ const App = () => {
       <main>
         <Hero />
         <About />
-        <ProjectList />
+        <Projects />
         <Blog />
         <Discover />
       </main>
+
+      <Footer />
     </>
   );
 };
