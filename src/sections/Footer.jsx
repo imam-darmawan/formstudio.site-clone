@@ -1,45 +1,29 @@
+import { secondaryLinks, socialLinks } from "../data/content";
 import Button from "../components/Button";
-import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useRef } from "react";
 
 const Footer = () => {
-  const socialLinks = [
-    { label: "Email", url: "#" },
-    { label: "Framer", url: "#" },
-    { label: "Twitter", url: "#" },
-    { label: "Buy Me", url: "#" },
-  ];
+  const brandNameRef = useRef();
 
-  const secondaryLinks = [
-    { label: "Design by Favorit X Frame", url: "#" },
-    { label: "Exclusive for the brand identity", url: "#" },
-    { label: "Be our Framer a(ff)ilite", url: "#" },
-    { label: "More minimal templates", url: "#" },
-  ];
-
-  const container = useRef();
-
-  useGSAP(
-    () => {
-      // Brand name reveal animation
-      gsap.from("small span", {
-        scrollTrigger: {
-          trigger: "small",
-          toggleActions: "restart none restart none",
-        },
-        y: "100%",
-        duration: 1,
-        stagger: 0.1,
-        ease: "power3.inOut",
-      });
-    },
-    { scope: container },
-  );
+  useGSAP(() => {
+    gsap.from(brandNameRef.current.children, {
+      y: "100%",
+      duration: 1,
+      stagger: 0.1,
+      ease: "power3.inOut",
+      scrollTrigger: {
+        trigger: brandNameRef.current,
+        toggleActions: "restart none none none",
+      },
+    });
+  });
 
   return (
-    <footer>
-      <div className="h-screen">
+    <div>
+      {/* Video */}
+      <div className="h-screen w-full">
         <video
           src="https://framerusercontent.com/assets/sagu9WJMRc7UvZaZc4N2cUQ68Z4.mp4"
           poster="https://framerusercontent.com/images/wliymflpHJV7DvV0MbCsghDF6e4.jpg"
@@ -50,36 +34,54 @@ const Footer = () => {
           className="h-full w-full object-cover"
         ></video>
       </div>
-      <div className="mt-10">
-        <ul className="grid grid-cols-4 gap-6">
+
+      {/* Social links */}
+      <div className="mt-3">
+        <ul className="grid grid-cols-4">
           {socialLinks.map((link) => (
-            <li key={link.label} className="text-center max-sm:col-span-2">
-              <Button label={link.label} />
+            <li
+              key={link.label}
+              className="col-span-2 p-3 text-center min-[512px]:col-span-1"
+            >
+              <Button label={link.label} url={link.url} />
             </li>
           ))}
         </ul>
+      </div>
 
-        <div className="mt-14 text-center" ref={container}>
-          <small className="inline-block overflow-hidden text-nowrap text-[clamp(7rem,30cqi,14rem)] font-extrabold uppercase leading-none tracking-tighter">
-            {"Form".split("").map((char) => (
-              <span key={char} className="inline-block">
-                {char}
-              </span>
-            ))}
-          </small>
-        </div>
+      {/* Brand name */}
+      <div className="mt-12">
+        <p
+          className="overflow-hidden text-nowrap text-center text-[clamp(6rem,30cqi,15rem)] font-extrabold leading-none"
+          ref={brandNameRef}
+        >
+          {"Form".split("").map((char) => (
+            <span key={char} className="inline-block">
+              {char}
+            </span>
+          ))}
+        </p>
+      </div>
 
-        <ul className="grid grid-cols-4 text-xs uppercase max-sm:text-center">
+      {/* Footer links */}
+      <div className="mt-6">
+        <ul className="grid grid-cols-4">
           {secondaryLinks.map((link) => (
-            <li key={link.label} className="p-6 max-sm:col-span-2">
-              <a href={link.url} className="inline-block max-w-40">
+            <li
+              key={link.label}
+              className="col-span-2 px-3 py-2 text-center min-[512px]:col-span-1 min-[512px]:text-left"
+            >
+              <a
+                href={link.url}
+                className="inline-block max-w-40 text-xs hover:underline"
+              >
                 {link.label}
               </a>
             </li>
           ))}
         </ul>
       </div>
-    </footer>
+    </div>
   );
 };
 

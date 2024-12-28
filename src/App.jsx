@@ -1,5 +1,5 @@
 import Background from "./components/Background";
-import NavLinks from "./components/NavLinks";
+import Header from "./sections/Header";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Projects from "./sections/Projects";
@@ -9,12 +9,10 @@ import Footer from "./sections/Footer";
 
 const App = () => {
   return (
-    <>
+    <div>
       <Background />
 
-      <header className="fixed inset-x-0 top-0 z-50 mix-blend-difference">
-        <NavLinks />
-      </header>
+      <Header />
 
       <main>
         <Hero />
@@ -25,7 +23,7 @@ const App = () => {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

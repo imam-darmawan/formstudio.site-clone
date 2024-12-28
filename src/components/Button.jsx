@@ -1,47 +1,59 @@
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import PropTypes from "prop-types";
 import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import PropTypes from "prop-types";
 
 const Button = ({ label, url, shortened }) => {
-  const container = useRef();
+  const buttonRef = useRef();
+  const borderRef = useRef();
 
   useGSAP(() => {
-    const borderAnimation = gsap.to(container.current, {
-      "--parenthesis-size": "50.1% + 0px",
-      paused: true,
+    const borderAnimation = gsap.to(borderRef.current, {
+      "--visible": "calc(50.1% + 0px)",
+      duration: 1,
       ease: "expo.inOut",
-      duration: 0.8,
+      paused: true,
     });
 
-    const play = () => borderAnimation.play();
-    const reverse = () => borderAnimation.reverse();
+    const handleMouseEnter = () => borderAnimation.play();
 
-    container.current.addEventListener("mouseenter", play);
-    container.current.addEventListener("mouseleave", reverse);
+    const handleMouseLeave = () => borderAnimation.reverse();
+
+    buttonRef.current.addEventListener("mouseenter", handleMouseEnter);
+    buttonRef.current.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      container.current.removeEventListener("mouseenter", play);
-      container.current.removeEventListener("mouseleave", reverse);
+      buttonRef.current.removeEventListener("mouseenter", handleMouseEnter);
+      buttonRef.current.removeEventListener("mouseleave", handleMouseLeave);
     };
   });
 
   return (
     <a
-      href={url ?? "#"}
-      className="parenthesize group inline-flex h-9 items-center justify-center text-nowrap px-4 text-xl uppercase max-sm:text-lg"
-      ref={container}
+      href={url || "#"}
+      className="group relative inline-block text-nowrap rounded-full px-3 py-2 leading-none"
+      ref={buttonRef}
     >
       {shortened ? (
-        <div className="flex">
-          <div>{label.at(0)}</div>
-          <div className="-translate-x-4 overflow-hidden -tracking-[1em] opacity-0 transition-all duration-700 group-hover:translate-x-0 group-hover:tracking-normal group-hover:opacity-100">
+        <>
+          <span>{label.at(0)}</span>
+          <span className="inline-block -translate-x-3 -tracking-[1rem] opacity-0 transition-all duration-700 group-hover:translate-x-0 group-hover:tracking-normal group-hover:opacity-100">
             {label.slice(1)}
-          </div>
-        </div>
+          </span>
+        </>
       ) : (
-        <div>{label}</div>
+        label
       )}
+
+      {/* Border */}
+      <div
+        className="absolute inset-0 rounded-full border border-white [--visible:calc(0%+8px)]"
+        style={{
+          mask: "linear-gradient(to right, black var(--visible), #0000 0), linear-gradient(to left, black var(--visible), #0000 0)",
+        }}
+        aria-hidden="true"
+        ref={borderRef}
+      ></div>
     </a>
   );
 };

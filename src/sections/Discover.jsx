@@ -4,83 +4,63 @@ import { useRef } from "react";
 import Button from "../components/Button";
 
 const Cover = () => {
-  const container = useRef();
-  const background = useRef();
+  const containerRef = useRef();
 
   useGSAP(
     () => {
       gsap.from("h2 span", {
-        scrollTrigger: {
-          trigger: container.current,
-          toggleActions: "restart none restart none",
-          start: "top top",
-        },
         y: "100%",
         duration: 1,
         stagger: 0.1,
         ease: "power3.inOut",
-      });
-
-      gsap.from(background.current, {
-        scale: 0,
         scrollTrigger: {
-          trigger: container.current,
-          scrub: 1,
-          start: "top top",
-          end: "bottom bottom",
+          trigger: containerRef.current,
+          start: "top -50",
+          toggleActions: "play none none reverse",
         },
       });
     },
-    { scope: container },
+    { scope: containerRef },
   );
 
   return (
-    <div ref={container} className="relative h-[200vh]">
+    <div className="h-[200vh]" ref={containerRef}>
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
-        <h2 className="relative z-10 overflow-hidden text-nowrap text-[clamp(7rem,30cqi,14rem)] font-extrabold uppercase leading-none tracking-tighter text-black">
-          {"Tbi".split("").map((char) => (
+        <h2 className="overflow-hidden text-nowrap text-[clamp(6rem,30cqi,15rem)] font-extrabold leading-none">
+          {"TBI".split("").map((char) => (
             <span key={char} className="inline-block">
               {char}
             </span>
           ))}
         </h2>
-        <div
-          className="absolute h-[240vh] w-[240vh] rounded-full bg-white"
-          ref={background}
-        ></div>
       </div>
     </div>
   );
 };
 
-const Content = () => {
-  const container = useRef();
+const CTA = () => {
+  const containerRef = useRef();
 
   useGSAP(
     () => {
-      const texts = gsap.utils.toArray("p span");
-
-      texts.forEach((text) => {
-        gsap.to(text, {
-          x: 0,
-          scrollTrigger: {
-            trigger: container.current,
-            start: "top bottom",
-            end: "bottom 80%",
-            scrub: 1,
-          },
-        });
+      gsap.to("p span", {
+        x: 0,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          scrub: 1,
+          end: "bottom 80%",
+        },
       });
     },
-    { scope: container },
+    { scope: containerRef },
   );
 
   return (
     <div
-      className="flex h-[70vh] flex-col items-center justify-center gap-12 overflow-hidden bg-white p-3 text-black [&_a]:after:!border-black"
-      ref={container}
+      className="flex h-[70vh] flex-col items-center justify-center gap-12 overflow-hidden p-6"
+      ref={containerRef}
     >
-      <p className="flex flex-col items-center justify-center text-center text-xl uppercase max-sm:text-lg">
+      <p className="flex flex-col items-center text-center">
         <span className="-translate-x-[50vw]">
           This site was designed by Favorit x Frame
         </span>
@@ -88,16 +68,52 @@ const Content = () => {
           exclusive for The Brand Identity.
         </span>
       </p>
-      <Button label="Discover" />
+
+      <div className="[&_a_div]:border-black">
+        <Button label="Discover" />
+      </div>
+    </div>
+  );
+};
+
+const CircleBackground = () => {
+  const containerRef = useRef();
+  const circleRef = useRef();
+
+  useGSAP(() => {
+    gsap.from(circleRef.current, {
+      scale: 0,
+      scrollTrigger: {
+        trigger: containerRef.current,
+        scrub: 1,
+        start: "top top",
+        end: "+=74% bottom",
+      },
+    });
+  });
+
+  return (
+    <div
+      className="absolute inset-0 -z-20 min-h-screen"
+      aria-hidden="true"
+      ref={containerRef}
+    >
+      <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
+        <div
+          className="absolute aspect-square w-[240vh] rounded-full bg-white"
+          ref={circleRef}
+        ></div>
+      </div>
     </div>
   );
 };
 
 const Discover = () => {
   return (
-    <div className="relative -z-[99]">
+    <div className="relative text-black">
+      <CircleBackground />
       <Cover />
-      <Content />
+      <CTA />
     </div>
   );
 };

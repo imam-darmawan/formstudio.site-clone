@@ -1,9 +1,9 @@
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
 
 const Background = () => {
-  const container = useRef();
+  const containerRef = useRef();
 
   useGSAP(
     () => {
@@ -15,25 +15,20 @@ const Background = () => {
         ease: "power4.out",
       });
     },
-    { scope: container },
+    { scope: containerRef },
   );
 
   return (
     <div
-      className="fixed -z-50 flex h-full w-full justify-evenly overflow-hidden"
+      className="fixed inset-0 -z-10 flex justify-evenly mix-blend-difference"
+      ref={containerRef}
       aria-hidden="true"
-      ref={container}
     >
       {Array(3)
         .fill()
-        .map((val, idx) => {
-          return (
-            <div
-              key={idx}
-              className="h-full w-px bg-neutral-500 opacity-30"
-            ></div>
-          );
-        })}
+        .map((v, i) => (
+          <div key={i} className="h-full w-px bg-white opacity-20"></div>
+        ))}
     </div>
   );
 };

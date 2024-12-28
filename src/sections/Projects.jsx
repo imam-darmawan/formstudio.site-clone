@@ -1,49 +1,46 @@
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { useRef } from "react";
+import gsap from "gsap";
+import Button from "../components/Button";
+import { projects } from "../data/content";
 import ProjectCard from "../components/ProjectCard";
-import { projects } from "../content";
 
 const Cover = () => {
-  const container = useRef();
+  const containerRef = useRef();
 
   useGSAP(
     () => {
-      // Video animation
-      gsap.from("video", {
+      gsap.to("h2 span", {
+        x: 0,
         scrollTrigger: {
-          trigger: container.current,
-          start: "top bottom",
-          end: "bottom bottom",
+          trigger: containerRef.current,
           scrub: 1,
+          end: "bottom bottom",
         },
-        scale: 0.5,
       });
 
-      // Text animation
-      gsap.to("span", {
+      gsap.from("video", {
+        scale: 0.5,
         scrollTrigger: {
-          trigger: container.current,
-          start: "top bottom",
-          end: "bottom bottom",
+          trigger: containerRef.current,
           scrub: 1,
+          end: "bottom bottom",
         },
-        x: "0",
       });
     },
-    { scope: container },
+    { scope: containerRef },
   );
 
   return (
-    <div className="h-[200vh]" ref={container}>
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <div
-          className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 text-[clamp(3.5rem,14cqi,9rem)] font-extrabold uppercase tracking-tighter mix-blend-difference"
-          aria-hidden="true"
-        >
-          <span className="-translate-x-[80vw]">Show</span>
-          <span className="translate-x-[80vw]">case</span>
+    <div className="h-[200vh] w-full" ref={containerRef}>
+      <div className="sticky top-0 h-screen w-full">
+        <div className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden mix-blend-difference">
+          <h2 className="text-[clamp(3rem,15cqi,9rem)] font-extrabold">
+            <span className="inline-block -translate-x-[55vw]">Show</span>
+            <span className="inline-block translate-x-[55vw]">case</span>
+          </h2>
         </div>
+
         <video
           src="https://framerusercontent.com/assets/BcIElVBzSD9P1ht5PhehnVyzTA.mp4"
           poster="https://framerusercontent.com/images/pv8GFuzq3eVNuiCHSbKRwmEK02E.jpg"
@@ -59,84 +56,74 @@ const Cover = () => {
 };
 
 const List = () => {
-  const container = useRef();
+  const containerRef = useRef();
+  const listRef = useRef();
 
-  useGSAP(
-    () => {
-      let horizontalScroll = () => {
-        const scrollable = container.current.querySelector("ul");
+  useGSAP(() => {
+    const horizontalScrollAnimation = gsap.to(listRef.current, {
+      x: () => -(listRef.current.scrollWidth - listRef.current.clientWidth),
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        scrub: 1,
+        start: "top -200",
+        end: "bottom bottom",
+      },
+    });
 
-        const animation = gsap.to("ul", {
-          x: () => -(scrollable.scrollWidth - scrollable.clientWidth),
-          ease: "none",
-          scrollTrigger: {
-            trigger: container.current,
-            start: "top -100",
-            end: "bottom bottom",
-            scrub: 1,
-          },
-        });
+    const resetHorizontalScrollAnimation = () => {
+      const progress = horizontalScrollAnimation.progress();
 
-        const reset = () => {
-          const progress = animation.totalProgress();
-          animation.progress(0);
-          animation.invalidate();
-          animation.totalProgress(progress);
-        };
+      horizontalScrollAnimation.progress(0);
+      horizontalScrollAnimation.invalidate();
+      horizontalScrollAnimation.totalProgress(progress);
+    };
 
-        window.addEventListener("resize", reset);
+    window.addEventListener("resize", resetHorizontalScrollAnimation);
 
-        return reset;
-      };
+    // Project card reveal animation
+    const projectCards = [...listRef.current.children].slice(0, 4);
 
-      horizontalScroll = horizontalScroll();
+    projectCards.forEach((card) =>
+      gsap.from(card, {
+        y: 200,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: card,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      }),
+    );
 
-      const projectsRevealAnimation = () => {
-        const projectCards = gsap.utils.toArray("ul li > *").slice(0, 4);
-
-        projectCards.forEach((card) => {
-          gsap.from(card, {
-            y: "200",
-            opacity: 0,
-            scrollTrigger: {
-              trigger: card.parentElement,
-              toggleActions: "play none none reverse",
-              start: "top 60%",
-            },
-          });
-        });
-      };
-
-      projectsRevealAnimation();
-
-      return () => {
-        window.removeEventListener("resize", horizontalScroll.reset);
-      };
-    },
-    { scope: container },
-  );
+    return () => {
+      window.removeEventListener("resize", resetHorizontalScrollAnimation);
+    };
+  });
 
   return (
-    <div className="mt-14 flex h-[500vh] flex-col items-center" ref={container}>
-      <h2 className="parenthesize inline-flex h-9 items-center px-4 text-xl uppercase max-sm:text-lg">
-        Projects
-      </h2>
+    <div className="mt-12 h-[500vh]" ref={containerRef}>
+      <div className="text-center">
+        <Button label="Projects" />
+      </div>
 
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <ul className="relative flex h-full pb-6 pt-16">
+      <div className="sticky top-0 overflow-hidden">
+        <div className="flex h-screen pt-12" ref={listRef}>
           {projects.map((project) => (
-            <li
-              className={`${project.align} w-1/4 flex-shrink-0 p-3 max-lg:w-1/2 max-sm:w-full`}
+            <div
               key={project.title}
+              className="w-full shrink-0 p-3 sm:w-1/2 lg:w-1/4"
+              style={{ alignSelf: project.align }}
             >
               <ProjectCard
                 title={project.title}
-                category={project.category}
                 image={project.image}
+                category={project.category}
+                linkLabel="View"
               />
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );

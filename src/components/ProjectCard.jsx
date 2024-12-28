@@ -1,75 +1,23 @@
 import PropTypes from "prop-types";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
-import gsap from "gsap";
+import Magnetic from "../components/Magnetic";
 
-const ProjectCard = ({ title, category, image }) => {
-  const imageContainer = useRef();
-  const buttonContainer = useRef();
-
-  useGSAP(() => {
-    let magneticButton = () => {
-      const xTo = gsap.quickTo(buttonContainer.current, "x", { duration: 0.5 });
-      const yTo = gsap.quickTo(buttonContainer.current, "y", { duration: 0.5 });
-
-      const mouseMove = (e) => {
-        const { clientX, clientY } = e;
-        const { width, height, left, top } =
-          imageContainer.current.getBoundingClientRect();
-
-        const x = (clientX - (left + width / 2)) / 4;
-        const y = (clientY - (top + height / 2)) / 4;
-
-        xTo(x);
-        yTo(y);
-      };
-
-      const mouseLeave = () => {
-        xTo(0);
-        yTo(0);
-      };
-
-      imageContainer.current.addEventListener("mousemove", mouseMove);
-      imageContainer.current.addEventListener("mouseleave", mouseLeave);
-
-      return { mouseMove, mouseLeave };
-    };
-
-    magneticButton = magneticButton();
-
-    return () => {
-      imageContainer.current.removeEventListener(
-        "mousemove",
-        magneticButton.mouseMove,
-      );
-      imageContainer.current.removeEventListener(
-        "mouseleave",
-        magneticButton.mouseLeave,
-      );
-    };
-  });
-
+const ProjectCard = ({ title, image, category, url, linkLabel }) => {
   return (
-    <article>
-      <a href="#">
-        <div className="group relative" ref={imageContainer}>
-          <img
-            src={image}
-            alt={title}
-            className="aspect-[3/2] w-full object-cover"
-          />
-          <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-            ref={buttonContainer}
-          >
-            <div
-              href="#"
-              className="flex h-11 scale-0 gap-1 text-xl uppercase opacity-0 transition duration-300 hover:!scale-110 group-hover:scale-100 group-hover:opacity-100 max-sm:text-lg"
-            >
-              <span className="flex h-full items-center rounded-full bg-black/50 px-5 backdrop-blur-sm">
-                View
+    <div>
+      <div className="relative">
+        <img
+          src={image}
+          alt={title}
+          className="aspect-[3/2] w-full object-cover"
+        />
+
+        <a href={url || "#"} className="group absolute inset-0">
+          <Magnetic>
+            <div className="flex h-12 scale-0 gap-1 opacity-0 transition duration-300 group-hover:scale-100 group-hover:opacity-100">
+              <span className="flex items-center rounded-full bg-black/50 px-4 backdrop-blur-sm">
+                {linkLabel}
               </span>
-              <span className="flex aspect-square h-full items-center justify-center overflow-hidden rounded-full bg-black/50 backdrop-blur-sm">
+              <span className="flex aspect-square items-center justify-center rounded-full bg-black/50 backdrop-blur-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -80,21 +28,24 @@ const ProjectCard = ({ title, category, image }) => {
                 </svg>
               </span>
             </div>
-          </div>
-        </div>
-        <h3 className="mt-2 flex justify-between text-xs uppercase">
-          <span>{title}</span>
-          <span>{category}</span>
-        </h3>
-      </a>
-    </article>
+          </Magnetic>
+        </a>
+      </div>
+
+      <h3 className="mt-2 flex items-center justify-between text-xs sm:text-sm">
+        <span className="flex-1">{title}</span>
+        <span className="text-nowrap">{category}</span>
+      </h3>
+    </div>
   );
 };
 
 ProjectCard.propTypes = {
   title: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  url: PropTypes.string,
+  linkLabel: PropTypes.string.isRequired,
 };
 
 export default ProjectCard;
