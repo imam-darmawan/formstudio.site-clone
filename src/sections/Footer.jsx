@@ -64,7 +64,7 @@ const Footer = () => {
       </div>
 
       {/* Footer links */}
-      <div className="mt-6">
+      <div className="my-6 min-[512px]:mb-0">
         <ul className="grid grid-cols-4">
           {secondaryLinks.map((link) => (
             <li

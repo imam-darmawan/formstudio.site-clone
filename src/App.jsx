@@ -1,4 +1,5 @@
 import Background from "./components/Background";
+import CustomCursor from "./components/CustomCursor";
 import Header from "./sections/Header";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
@@ -10,6 +11,7 @@ import Footer from "./sections/Footer";
 const App = () => {
   return (
     <div>
+      <CustomCursor />
       <Background />
 
       <Header />
