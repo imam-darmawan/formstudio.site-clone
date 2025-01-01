@@ -100,7 +100,7 @@ const CircleBackground = () => {
     >
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
         <div
-          className="absolute aspect-square w-[240vh] rounded-full bg-white"
+          className="absolute aspect-square w-[150vmax] rounded-full bg-white"
           ref={circleRef}
         ></div>
       </div>
